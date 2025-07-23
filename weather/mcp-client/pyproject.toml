@@ -1,0 +1,8 @@
+[project]
+name = "mcp-client"
+version = "0.1.0"
+dependencies = [
+    "anthropic>=0.58.2",
+    "mcp>=1.12.0",
+    "python-dotenv>=1.1.1",
+]
