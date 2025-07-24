@@ -1,28 +1,72 @@
-# Weather MCP
+# Weather MCP: Advanced Model Context Protocol Platform
 
-A complete Model Context Protocol (MCP) project featuring both a weather server and a client, built in Python. This project demonstrates how to expose weather data and tools to LLMs and interact with them via a custom client.
+Weather MCP is a robust, production-ready implementation of the Model Context Protocol (MCP) in Python. It features a modular weather data server and a powerful client, demonstrating real-world LLM tool integration, secure API handling, and scalable architecture.
 
-## Features
-- **Weather MCP Server**: Provides weather alerts and forecasts using the National Weather Service API.
-- **MCP Client**: Connects to the server, interacts with LLMs (Claude via Anthropic), and demonstrates tool usage.
-- **Modern Python project structure** with isolated environments for server and client.
+---
 
-## Directory Structure
+## 🚀 Features
+
+- **MCP Weather Server**: Exposes weather alerts and forecasts as callable tools for LLMs, using the National Weather Service API.
+- **MCP Client**: Securely connects to any MCP server, supports Anthropic Claude integration, and demonstrates dynamic tool invocation.
+- **Extensible Architecture**: Easily add new tools, resources, or prompts for any LLM workflow.
+- **Security Best Practices**: Environment-based secrets, strict .gitignore, and no sensitive data in code.
+- **Modern Python Project Structure**: Isolated environments for server and client, ready for CI/CD and cloud deployment.
+
+---
+
+## 🏗️ System Architecture
+
+```mermaid
+graph TD
+    User["User (Terminal/Claude Desktop)"]
+    Client["MCP Client (Python)"]
+    Claude["Anthropic Claude API"]
+    Server["MCP Weather Server (Python)"]
+    NWS["National Weather Service API"]
+
+    User <--> Client
+    Client <--> Claude
+    Client <--> Server
+    Server <--> NWS
+```
+
+---
+
+## 📂 Directory Structure
+
 ```
 weather-mcp/
 ├── weather/
 │   ├── weather.py         # MCP server implementation
-│   ├── .gitignore         # Server-side ignores
-│   └── ...
+│   ├── .gitignore
 │   └── mcp-client/
 │       ├── client.py      # MCP client implementation
-│       ├── .gitignore     # Client-side ignores
+│       ├── .gitignore
 │       └── ...
 ├── README.md
 └── ...
 ```
 
-## Setup
+---
+
+## 🖥️ Example Usage
+
+### Interactive Client Session
+
+```shell
+$ python client.py ../weather.py
+Connected to server with tools: ['get_alerts', 'get_forecast']
+
+MCP Client Started!
+Type your queries or 'quit' to exit.
+
+Query: What’s the weather in Sacramento?
+... (response from server)
+```
+
+---
+
+## ⚙️ Setup
 
 ### 1. Clone the Repository
 ```sh
@@ -51,35 +95,27 @@ Create a `.env` file in `weather/mcp-client/`:
 ```
 ANTHROPIC_API_KEY=your-anthropic-api-key-here
 ```
-**Never commit your API key!**
 
-## Usage
+---
 
-### Start the Server
-```sh
-cd weather
-source .venv/bin/activate
-python weather.py
-```
+## 🛡️ Security & Best Practices
 
-### Start the Client
-```sh
-cd weather/mcp-client
-source .venv/bin/activate
-python client.py ../weather.py
-```
-
-You’ll see an interactive prompt. Type queries like:
-- `What’s the weather in Sacramento?`
-- `What are the active weather alerts in Texas?`
-
-Type `quit` to exit.
-
-## Security Notes
 - `.env` and `.venv` are git-ignored for safety.
 - **Never commit your API keys or secrets.**
+- Modular codebase for easy extension and integration with other LLMs or APIs.
 
-## References
+---
+
+## 📈 Extending the Platform
+
+- Add new tools to the server by decorating Python functions with `@mcp.tool()`.
+- Integrate with other LLMs or APIs by updating the client logic.
+- Ready for deployment on cloud platforms or integration with enterprise workflows.
+
+---
+
+## 📚 References
+
 - [Model Context Protocol Quickstart](https://modelcontextprotocol.io/quickstart/server)
 - [MCP Python SDK on PyPI](https://pypi.org/project/mcp/)
 
