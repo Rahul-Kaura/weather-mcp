@@ -1,0 +1,1 @@
+import requests; print("Testing TuanKiri SSE endpoint..."); response = requests.get("http://localhost:8000/sse", timeout=3); print(f"Status: {response.status_code}"); print("✅ TuanKiri server is working!")

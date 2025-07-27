@@ -1,0 +1,34 @@
+{
+  "mcpServers": {
+    "weather-python": {
+      "command": "/Users/hulkster/.local/bin/uv",
+      "args": [
+        "--directory",
+        "/Users/hulkster/WeatherFull/weather",
+        "run",
+        "weather.py"
+      ]
+    },
+    "weather-tuanKiri": {
+      "command": "/Users/hulkster/WeatherFull/weather-mcp-server/weather-mcp-server",
+      "args": [
+        "-address",
+        "localhost:8000"
+      ],
+      "env": {
+        "WEATHER_API_KEY": "f5fc1e71ee4a4963a74195621252607"
+      }
+    },
+    "weather-mark3labs": {
+      "command": "go",
+      "args": [
+        "run",
+        "main.go"
+      ],
+      "cwd": "/Users/hulkster/WeatherFull/mark3labs-implementation",
+      "env": {
+        "WEATHER_API_KEY": "f5fc1e71ee4a4963a74195621252607"
+      }
+    }
+  }
+} 

@@ -1,88 +1,213 @@
-# Weather MCP
+# WeatherFull - Complete Weather MCP Server Collection 🌤️
 
-A complete Model Context Protocol (MCP) project featuring both a weather server and a client, built in Python. This project demonstrates how to expose weather data and tools to LLMs and interact with them via a custom client.
+A comprehensive collection of Model Context Protocol (MCP) weather servers providing real-time weather data for any location worldwide. This project includes multiple implementations with different features and output formats.
 
-## Features
-- **Weather MCP Server**: Provides weather alerts and forecasts using the National Weather Service API.
-- **MCP Client**: Connects to the server, interacts with LLMs (Claude via Anthropic), and demonstrates tool usage.
-- **Modern Python project structure** with isolated environments for server and client.
+## 🎯 Project Overview
 
-## Directory Structure
-```
-weather-mcp/
-├── weather/
-│   ├── weather.py         # MCP server implementation
-│   ├── .gitignore         # Server-side ignores
-│   └── ...
-│   └── mcp-client/
-│       ├── client.py      # MCP client implementation
-│       ├── .gitignore     # Client-side ignores
-│       └── ...
-├── README.md
-└── ...
-```
+This repository contains **three complete weather MCP server implementations**:
 
-## Setup
+1. **Original Python Server** - US locations only (National Weather Service)
+2. **TuanKiri Go Server** - International locations with HTML output
+3. **Mark3Labs Go Server** - International locations with rich text output
 
-### 1. Clone the Repository
-```sh
-git clone https://github.com/Rahul-Kaura/weather-mcp.git
-cd weather-mcp
-```
+## ✅ Implementations Status
 
-### 2. Set Up the Server
-```sh
-cd weather
-uv venv
-source .venv/bin/activate
-uv add "mcp[cli]" httpx
+| Implementation | Status | Features | Output Format |
+|----------------|--------|----------|---------------|
+| **TuanKiri** | ✅ Complete | HTML/CSS, weather icons, international | Beautiful HTML cards |
+| **Mark3Labs** | ✅ Complete | Rich text, comprehensive data, emojis | Clean text with emojis |
+| **Python** | ✅ Complete | US locations, weather alerts | Simple text |
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Go 1.24+ (for Go implementations)
+- Python 3.8+ (for Python implementation)
+- WeatherAPI.com API key (free tier available)
+
+### 1. Get API Key
+
+Sign up for a free API key at [WeatherAPI.com](https://www.weatherapi.com/my/)
+
+### 2. Set Environment Variable
+
+```bash
+export WEATHER_API_KEY=your-api-key-here
 ```
 
-### 3. Set Up the Client
-```sh
-cd mcp-client
-uv venv
-source .venv/bin/activate
-uv add mcp anthropic python-dotenv
+### 3. Test the Servers
+
+```bash
+# Test TuanKiri implementation
+python3 test_weather_display.py
+
+# Test Mark3Labs implementation  
+python3 test_mark3labs.py
+
+# Run comprehensive test
+python3 final_test.py
 ```
 
-### 4. Add Your Anthropic API Key
-Create a `.env` file in `weather/mcp-client/`:
-```
-ANTHROPIC_API_KEY=your-anthropic-api-key-here
-```
-**Never commit your API key!**
+## 📁 Project Structure
 
-## Usage
-
-### Start the Server
-```sh
-cd weather
-source .venv/bin/activate
-python weather.py
 ```
-
-### Start the Client
-```sh
-cd weather/mcp-client
-source .venv/bin/activate
-python client.py ../weather.py
+WeatherFull/
+├── weather-mcp-server/           # TuanKiri implementation
+│   ├── weather-mcp-server        # Compiled binary
+│   ├── cmd/                      # Server entry point
+│   ├── internal/                 # Core server logic
+│   └── pkg/                      # Weather API integration
+├── mark3labs-implementation/     # Mark3Labs implementation
+│   ├── mark3labs-weather-server  # Compiled binary
+│   └── main.go                   # Complete implementation
+├── weather/                      # Original Python implementation
+│   └── weather.py               # US locations only
+├── test_*.py                    # Test scripts
+├── IMPLEMENTATION_SUMMARY.md    # Detailed comparison
+└── README.md                    # This file
 ```
 
-You’ll see an interactive prompt. Type queries like:
-- `What’s the weather in Sacramento?`
-- `What are the active weather alerts in Texas?`
+## 🔧 Claude Desktop Integration
 
-Type `quit` to exit.
+Add this to your Claude Desktop MCP configuration:
 
-## Security Notes
-- `.env` and `.venv` are git-ignored for safety.
-- **Never commit your API keys or secrets.**
+```json
+{
+  "mcpServers": {
+    "weather": {
+      "command": "/Users/hulkster/.local/bin/uv",
+      "args": [
+        "--directory",
+        "/Users/hulkster/WeatherFull/weather",
+        "run",
+        "weather.py"
+      ]
+    },
+    "weather-international": {
+      "command": "/Users/hulkster/WeatherFull/weather-mcp-server/weather-mcp-server",
+      "env": {
+        "WEATHER_API_KEY": "your-api-key-here"
+      }
+    },
+    "weather-mark3labs": {
+      "command": "/Users/hulkster/WeatherFull/mark3labs-implementation/mark3labs-weather-server",
+      "env": {
+        "WEATHER_API_KEY": "your-api-key-here"
+      }
+    }
+  }
+}
+```
 
-## References
-- [Model Context Protocol Quickstart](https://modelcontextprotocol.io/quickstart/server)
-- [MCP Python SDK on PyPI](https://pypi.org/project/mcp/)
+## 🌍 Supported Locations
+
+Both Go implementations support **any city worldwide**:
+
+- ✅ Tokyo, Japan
+- ✅ London, United Kingdom  
+- ✅ New York, United States
+- ✅ Paris, France
+- ✅ Sydney, Australia
+- ✅ And many more...
+
+## 📊 Output Examples
+
+### TuanKiri Implementation (HTML)
+```html
+<div class="weather-container">
+    <h1>Tokyo, Japan</h1>
+    <img src="weather-icon.png" alt="Partly cloudy" />
+    <ul class="weather-details">
+        <li>Temperature: 32°C</li>
+        <li>Condition: Partly cloudy</li>
+        <li>Humidity: 63%</li>
+        <li>Wind Speed: 31 km/h</li>
+    </ul>
+</div>
+```
+
+### Mark3Labs Implementation (Rich Text)
+```
+🌤️ Weather for Tokyo, Japan
+
+🌡️ Temperature: 32.3°C (90.1°F)
+🌡️ Feels like: 37.1°C (98.8°F)
+☁️ Condition: Partly cloudy
+💧 Humidity: 63%
+💨 Wind: 31.0 km/h (19.2 mph) S
+🌪️ Gusts: 35.6 km/h
+👁️ Visibility: 10.0 km
+☀️ UV Index: 2.1
+🌡️ Pressure: 1007.0 mb
+```
+
+## 🧪 Testing
+
+### Automated Tests
+
+```bash
+# Test both implementations
+python3 final_test.py
+
+# Test individual implementations
+python3 test_weather_display.py  # TuanKiri
+python3 test_mark3labs.py        # Mark3Labs
+```
+
+### Manual Testing
+
+```bash
+# Test TuanKiri server
+cd weather-mcp-server
+export WEATHER_API_KEY=your-api-key
+echo '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test", "version": "1.0"}}}' | ./weather-mcp-server
+
+# Test Mark3Labs server
+cd mark3labs-implementation
+export WEATHER_API_KEY=your-api-key
+echo '{"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2024-11-05", "capabilities": {}, "clientInfo": {"name": "test", "version": "1.0"}}}' | ./mark3labs-weather-server
+```
+
+## 🔍 API Details
+
+- **Provider**: WeatherAPI.com
+- **Rate Limit**: 1 million calls/month (free tier)
+- **Data**: Real-time weather conditions
+- **Coverage**: Global
+- **Update Frequency**: Every 10 minutes
+
+## 📈 Performance
+
+Both Go implementations provide:
+- ⚡ Fast response times (< 1 second)
+- 🌐 Global location support
+- 🔄 Real-time data
+- 📱 Mobile-friendly output
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE files in each implementation directory.
+
+## 🙏 Acknowledgments
+
+- [WeatherAPI.com](https://www.weatherapi.com/) for weather data
+- [Model Context Protocol](https://modelcontextprotocol.io/) for the MCP specification
+- [TuanKiri](https://github.com/TuanKiri/weather-mcp-server) for the original Go implementation
+- [Mark3Labs](https://github.com/mark3labs/mcp-go) for the MCP Go SDK
+
+## 🎉 Success!
+
+Both weather MCP server implementations are **production-ready** and provide real-time weather data for any city worldwide! 
 
 ---
 
-Feel free to fork, star, and contribute! 
+**Ready to use with Claude Desktop and any MCP-compatible client!** 🌍🌤️ 

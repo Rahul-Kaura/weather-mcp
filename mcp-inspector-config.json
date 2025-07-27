@@ -1,0 +1,16 @@
+{
+  "servers": {
+    "tuanKiri-weather": {
+      "command": "./weather-mcp-server/weather-mcp-server",
+      "env": {
+        "WEATHER_API_KEY": "f5fc1e71ee4a4963a74195621252607"
+      }
+    },
+    "mark3labs-weather": {
+      "command": "./mark3labs-implementation/mark3labs-weather-server",
+      "env": {
+        "WEATHER_API_KEY": "f5fc1e71ee4a4963a74195621252607"
+      }
+    }
+  }
+} 

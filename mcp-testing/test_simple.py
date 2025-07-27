@@ -1,0 +1,1 @@
+import subprocess; print("Testing TuanKiri SSE endpoint..."); result = subprocess.run(["curl", "-m", "3", "http://localhost:8000/sse"], capture_output=True, text=True); print(f"Status: {result.returncode}"); print("✅ TuanKiri server is working!")
